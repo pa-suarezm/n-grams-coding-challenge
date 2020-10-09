@@ -28,7 +28,7 @@ public class NGrams
 		{
 			printMenu();
 
-			userInput = s.next();
+			userInput = s.next().trim();
 
 			try
 			{
@@ -44,7 +44,7 @@ public class NGrams
 				continue;
 			}
 
-			if(menuOption != 1 || menuOption != 2 || menuOption != 3)
+			if(menuOption != 1 && menuOption != 2 && menuOption != 3)
 			{
 				printInvalidInput();
 			}
@@ -62,15 +62,15 @@ public class NGrams
 							+ "Please input the text to be analyzed:\n";
 					System.out.println(msg);
 
-					String text = s.next();
+					String text = s.next().trim();
 
-					msg = "Please input the desired n-gram to be calculated:";
+					msg = "Please input the desired n-gram to be calculated (positive whole number):";
 					System.out.println(msg);
 
 					int n = -1;
 					try
 					{
-						n = Integer.parseInt(s.next());
+						n = Integer.parseInt(s.next().trim());
 					}
 					catch(Exception e)
 					{
@@ -99,15 +99,15 @@ public class NGrams
 							+ "Please input the text to be analyzed:\n";
 					System.out.println(msg);
 
-					String text = s.next();
+					String text = s.next().trim();
 
-					msg = "Please input the desired n-gram to be evaluated:";
+					msg = "Please input the desired n-gram to be evaluated (positive whole number):";
 					System.out.println(msg);
 
 					int n = -1;
 					try
 					{
-						n = Integer.parseInt(s.next());
+						n = Integer.parseInt(s.next().trim());
 					}
 					catch(Exception e)
 					{
@@ -123,7 +123,8 @@ public class NGrams
 
 					String ans = mostFrequentNGram(text, n);
 					
-					//TODO print results
+					System.out.println("The most frequent " + n + "-gram for '" + text + "' is '" + ans + "'\n"
+							+ "------------------------------------------\n\n");
 				}
 			}
 		}
