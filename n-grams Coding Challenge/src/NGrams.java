@@ -37,6 +37,10 @@ public class NGrams
 			catch(Exception e)
 			{
 				printInvalidInput();
+				
+				//TODO erase - debug purposes
+				e.printStackTrace();
+				
 				continue;
 			}
 
@@ -71,9 +75,19 @@ public class NGrams
 					catch(Exception e)
 					{
 						printInvalidParams();
+						
+						//TODO erase - debug purposes
+						e.printStackTrace();
+						
 						continue;
 					}
 
+					if(n < 1)
+					{
+						printInvalidParams();
+						continue;
+					}
+					
 					List<String> ans = calculateNGrams(text, n);
 					
 					//TODO print results
@@ -100,6 +114,12 @@ public class NGrams
 						printInvalidParams();
 						continue;
 					}
+					
+					if(n < 1)
+					{
+						printInvalidParams();
+						continue;
+					}
 
 					String ans = mostFrequentNGram(text, n);
 					
@@ -120,7 +140,39 @@ public class NGrams
 	private static List<String> calculateNGrams(String text, int n)
 	{
 		List<String> ans = new ArrayList<String>();
-		//TODO algorithm
+
+		String[] allChars = text.split("");
+		
+		if(n == 1)
+		{
+			for(int i = 0; i < allChars.length; i++)
+				ans.add(allChars[i]);
+		}
+		else if(n >= allChars.length)
+		{
+			ans.add(text);
+		}
+		else
+		{
+			for(int i = 0; i < allChars.length-(n-1); i++)
+			{
+				String aux = "";
+				
+				int j = i;
+				int cnt = 0;
+				
+				while(cnt < n)
+				{
+					aux += allChars[j];
+					
+					j++;
+					cnt++;
+				}
+				
+				ans.add(aux);
+			}
+		}
+		
 		return ans;
 	}
 
@@ -132,8 +184,32 @@ public class NGrams
 	 */
 	private static String mostFrequentNGram (String text, int n)
 	{
-		String ans = "";
-		//TODO algorithm
+		List<String> nGrams = calculateNGrams(text, n);
+	
+		String ans = nGrams.get(0);
+		int maxActual = 0;
+		
+		String actual = "";
+		int cnt = 0;
+		
+		for(int i = 0; i < nGrams.size(); i++)
+		{
+			actual = nGrams.get(i);
+			cnt = 0;
+			
+			for(int j = i; j < nGrams.size(); j++)
+			{
+				if(actual.equals(nGrams.get(j)))
+					cnt++;
+			}
+			
+			if(cnt > maxActual)
+			{
+				maxActual = cnt;
+				ans = actual;
+			}
+		}
+		
 		return ans;
 	}
 
@@ -169,7 +245,7 @@ public class NGrams
 	private static void printInvalidParams()
 	{
 		System.out.println("--------------------------------\n"
-				+ "Your input was not valid. This program expects whole numbers.\n"
+				+ "Your input was not valid. This program expects positive whole numbers.\n"
 				+ "Returning to main menu.\n"
 				+ "--------------------------------\n\n");
 	}
