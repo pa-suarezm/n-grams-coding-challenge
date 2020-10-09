@@ -37,10 +37,6 @@ public class NGrams
 			catch(Exception e)
 			{
 				printInvalidInput();
-				
-				//TODO erase - debug purposes
-				e.printStackTrace();
-				
 				continue;
 			}
 
@@ -75,10 +71,6 @@ public class NGrams
 					catch(Exception e)
 					{
 						printInvalidParams();
-						
-						//TODO erase - debug purposes
-						e.printStackTrace();
-						
 						continue;
 					}
 
@@ -90,7 +82,12 @@ public class NGrams
 					
 					List<String> ans = calculateNGrams(text, n);
 					
-					//TODO print results
+					msg = "All the " + n + "-grams for '" + text + "' are: " +"\n[\"";
+					for(int i = 0; i < ans.size()-1; i++)
+						msg += ans.get(i) + "\", \"";
+					msg += ans.get(ans.size()-1) + "\"]\n";
+					
+					System.out.println(msg);
 				}
 				else //mostFrequentNGram
 				{
